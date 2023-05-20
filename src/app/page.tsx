@@ -42,7 +42,7 @@ export class Request {
       throw new Error("JWT token is 필요합니다");
     }
 
-    const result = await axios.post("http://localhost:8080/user", this, {
+    const result = await axios.post("https://localhost:8080/user", this, {
       headers: {
         Authorization: `Bearer ${this.jwtToken}`,
       },
