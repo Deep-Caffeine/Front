@@ -1,10 +1,14 @@
+"use client";
+
 import axios from "axios";
 
 export default function Home() {
   const handleClick = async () => {
-    const request = new Request("username", "phone", "password");
+    const jwtToken = "토큰";
+    const request = new Request("username", "phone", "password", jwtToken);
     const response: Response = await request.send();
-    console.log(response);
+    console.log("Response: ", response);
+    console.log("Coupert item: ", response.CoupertItem);
   };
 
   return (
@@ -20,14 +24,33 @@ export class Request {
   username?: string;
   phone?: string;
   password?: string;
+  jwtToken: string;
 
-  constructor(username?: string, phone?: string, password?: string) {
+  constructor(
+    jwtToken: string,
+    username?: string,
+    phone?: string,
+    password?: string
+  ) {
     this.username = username;
     this.phone = phone;
     this.password = password;
+    this.jwtToken = jwtToken;
   }
   async send(): Promise<Response> {
-    return await axios.post("http://localhost:8080/user", this);
+    if (!this.jwtToken) {
+      throw new Error("JWT token is 필요합니다");
+    }
+
+    const result = await axios.post("http://localhost:8080/user", this, {
+      headers: {
+        Authorization: `Bearer ${this.jwtToken}`,
+      },
+    });
+
+    // 서버로부터의 실제 응답 형식에 따라이 부분을 조정하세요
+    const { data, statusCode, message, coupertItem } = result.data;
+    return new Response(data, statusCode, message, coupertItem);
   }
 }
 
@@ -35,10 +58,17 @@ export class Response {
   data: object;
   StatusCode: number;
   Message: string;
+  CoupertItem: any; // 속성의 유형을 필요에 따라 업데이트 하세요
 
-  constructor(data: object, statusCode: number, message: string) {
+  constructor(
+    data: object,
+    statusCode: number,
+    message: string,
+    coupertItem: any
+  ) {
     this.data = data;
     this.StatusCode = statusCode;
     this.Message = message;
+    this.CoupertItem = coupertItem;
   }
 }
