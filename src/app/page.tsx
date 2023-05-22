@@ -23,14 +23,13 @@ export default function Home() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const request = new Request(
+    const request = new UpdateRequest(
       editData.username,
       editData.phone,
       editData.birth,
       editData.password
     );
     const response = await request.send();
-    console.log("Response: ", response);
   };
 
   return (
@@ -81,7 +80,16 @@ export default function Home() {
   );
 }
 
-export class Request {
+export class UpdateResponse {
+  status: string;
+  message: string;
+
+  constructor(status: string, message: string) {
+    this.status = status;
+    this.message = message;
+  }
+}
+export class UpdateRequest {
   username?: string;
   phone?: string;
   password?: string;
@@ -99,12 +107,12 @@ export class Request {
     this.birth = birth;
   }
 
-  async send(): Promise<Response> {
+  async send(): Promise<UpdateResponse> {
     const response = await axios.put(
       "http://www.ideaconnect.online/user",
       this
     );
 
-    return response.data;
+    return new UpdateResponse(response.data.status, response.data.message);
   }
 }
