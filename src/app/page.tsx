@@ -22,10 +22,8 @@ export default function Home() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const jwtToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6I";
+
     const request = new Request(
-      jwtToken,
       editData.username,
       editData.phone,
       editData.birth,
@@ -42,7 +40,7 @@ export default function Home() {
         <div>
           <label>Password</label>
           <input
-            type="password"
+            type="text"
             name="password"
             value={editData.password}
             onChange={handleChange}
@@ -69,7 +67,7 @@ export default function Home() {
         <div>
           <label>Birth</label>
           <input
-            type="date"
+            type="text"
             name="birth"
             value={editData.birth}
             onChange={handleChange}
@@ -88,10 +86,8 @@ export class Request {
   phone?: string;
   password?: string;
   birth?: string;
-  jwtToken: string;
 
   constructor(
-    jwtToken: string,
     username?: string,
     phone?: string,
     birth?: string,
@@ -101,22 +97,12 @@ export class Request {
     this.phone = phone;
     this.password = password;
     this.birth = birth;
-    this.jwtToken = jwtToken;
   }
 
   async send(): Promise<Response> {
-    if (!this.jwtToken) {
-      throw new Error("JWT token is 필요합니다");
-    }
-
     const response = await axios.put(
-      "https://www.ideaconnect.online/user",
-      this,
-      {
-        headers: {
-          Authorization: `Bearer ${this.jwtToken}`,
-        },
-      }
+      "http://www.ideaconnect.online/user",
+      this
     );
 
     return response.data;
