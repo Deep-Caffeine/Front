@@ -2,10 +2,10 @@
 
 import axios from "axios";
 import { FormEvent, useState, ChangeEvent } from "react";
-import { Update } from "./types/update";
+import { Update, UpdateState } from "./types/update";
 
 export default function Home() {
-  const [editData, setEdit] = useState<Update>({
+  const [editData, setEdit] = useState<UpdateState>({
     username: "병주",
     password: "4790",
     phone: "010-7329-7895",
@@ -80,15 +80,6 @@ export default function Home() {
   );
 }
 
-export class UpdateResponse {
-  status: string;
-  message: string;
-
-  constructor(status: string, message: string) {
-    this.status = status;
-    this.message = message;
-  }
-}
 export class UpdateRequest {
   username?: string;
   phone?: string;
@@ -107,12 +98,12 @@ export class UpdateRequest {
     this.birth = birth;
   }
 
-  async send(): Promise<UpdateResponse> {
+  async send(): Promise<Update> {
     const response = await axios.put(
       "http://www.ideaconnect.online/user",
       this
     );
-
-    return new UpdateResponse(response.data.status, response.data.message);
+    const data: Update = response.data;
+    return data;
   }
 }
