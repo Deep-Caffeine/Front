@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { FormEvent, useState, ChangeEvent } from "react";
-import { Update, UpdateState } from "../../types/user/UserUpdate";
+import { UserUpdate, UpdateState } from "../../types/user/UserUpdate";
 
 export default function Home() {
   const [editData, setEdit] = useState<UpdateState>({
@@ -98,12 +98,12 @@ export class UpdateRequest {
     this.birth = birth;
   }
 
-  async send(): Promise<Update> {
+  async send(): Promise<UserUpdate> {
     const response = await axios.put(
       "http://www.ideaconnect.online/user",
       this
     );
-    const data: Update = response.data;
+    const data: UserUpdate = response.data;
     return data;
   }
 }

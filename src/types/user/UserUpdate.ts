@@ -1,4 +1,4 @@
-export interface Update {
+export interface UserUpdate {
   // update 이름 바꾸ㅓ야함
   username?: string;
   password?: string;
