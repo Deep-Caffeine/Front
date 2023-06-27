@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { FormEvent, useState, ChangeEvent } from "react";
-import { Update, UpdateState } from "../../types/user/update";
+import { Update, UpdateState } from "../../types/user/UserUpdate";
 
 export default function Home() {
   const [editData, setEdit] = useState<UpdateState>({

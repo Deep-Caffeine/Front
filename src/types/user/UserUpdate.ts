@@ -1,4 +1,5 @@
 export interface Update {
+  // update 이름 바꾸ㅓ야함
   username?: string;
   password?: string;
   phone?: string;
