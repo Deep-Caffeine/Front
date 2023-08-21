@@ -1,7 +1,7 @@
 export interface ApiErrorResponse {
   code: number;
   message: string;
-  result?: boolean; // TODO: delete, 모든 api에서 result가 삭제되면 제거 (w. 민수님 0727), api 업데이트 확인하기 후 제거
+  result?: boolean; // 
 }
 
 class ResponseError {

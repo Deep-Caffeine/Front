@@ -1,8 +1,8 @@
 import axios from "axios";
-import { baseURL } from "@/constants/url";
+import { baseURL } from "../constants/url";
 import ResponseError, { isApiErrorResponse } from "./ResponseError";
-import { UNKNOWN_RESPONSE } from "@/constants/unknownResponse";
-import { Instance } from "@/tpyes/api";
+import { UNKNOWN_RESPONSE } from "../constants/unknownResponse";
+import { Instance } from "../tpyes/api";
 
 const instance = axios.create({
     baseURL,
