@@ -1,5 +1,6 @@
+/** @jsxImportSource @emotion/react */
 import React from 'react';
-import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
 interface ModalProps {
   open: boolean;
@@ -7,7 +8,7 @@ interface ModalProps {
   children: React.ReactNode;
 }
 
-const ModalBackground = styled.div`
+const modalBackgroundStyle = css`
   position: fixed;
   top: 0;
   left: 0;
@@ -20,7 +21,7 @@ const ModalBackground = styled.div`
   z-index: 1000;
 `;
 
-const ModalContent = styled.div`
+const modalContentStyle = css`
   background-color: #ffffff;
   width: 80%;
   max-width: 400px;
@@ -33,11 +34,11 @@ export default function Modal({ open, onClose, children }: ModalProps) {
     return null;
   }
 
-  return (
-    <ModalBackground onClick={onClose}>
-      <ModalContent onClick={(e) => e.stopPropagation()}>
+  return(
+    <div css={modalBackgroundStyle} onClick={onClose}>
+      <div css={modalContentStyle} onClick={(e) => e.stopPropagation()}>
         {children}
-      </ModalContent>
-    </ModalBackground>
+      </div>
+    </div>
   );
 }

@@ -1,5 +1,6 @@
+/** @jsxImportSource @emotion/react */
 import React from 'react';
-import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
 export interface ButtonProps {
   onClick: () => void;
@@ -7,14 +8,13 @@ export interface ButtonProps {
   disabled?: boolean;
 }
 
-const StyledButton = styled.button`
+const ButtonStyle = css` // 임시
   width: 26px;
 `;
 
-export default function Button({ onClick, children, disabled = false }: ButtonProps) {
+export default function Button({onClick, disabled=false} : ButtonProps){
   return (
-    <StyledButton onClick={onClick} disabled={disabled}>
-      {children}
-    </StyledButton>
+    <button css={ButtonStyle} onClick={onClick} disabled={disabled}>
+    </button>
   );
 };
