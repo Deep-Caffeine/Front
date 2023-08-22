@@ -1,23 +1,21 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { css } from '@emotion/react';
+import { BaseTypes } from '../tpyes/common';
 
-export interface InputProps {
+
+export interface InputProps extends BaseTypes{
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    value:string;
+    value?:string;
     placeholder?:string;
     disabled?:boolean;
+    width: number;
+    height: number;
 }
 
-const InputStyle = css` //임시
-  width: 26px;
-`;
-
-
-export default function TextInput({ onChange, value, placeholder = '', disabled = false }: InputProps) {
+export default function TextInput({ onChange, value, placeholder, disabled, width, height }: InputProps) {
     return(
         <input
-            css={InputStyle}
+            css={InputStyle(width, height)}
             onChange={onChange}
             value={value}
             placeholder={placeholder}
@@ -26,3 +24,12 @@ export default function TextInput({ onChange, value, placeholder = '', disabled 
         />     
     )
 }
+
+const InputStyle = (width:number, height:number) => ({
+    width: `${width}px`,
+    height: `${height}px`,
+    padding: "12px",
+    borderRadius: "10px",
+    border: "1px solid rgba(0, 0, 0, 0.10)",
+    fontSize: "10px"
+})

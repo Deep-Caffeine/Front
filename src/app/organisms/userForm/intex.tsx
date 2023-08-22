@@ -1,13 +1,16 @@
 /** @jsxImportSource @emotion/react */
+import { Provider } from 'jotai'
 import Box from "../../atoms/Box";
 import Login from "./login";
 import { flexColumnCentering } from "@/app/styles/flex";
 
 export default function UserForm(){
     return(
-        <Box css={wrapperStyle}>
-            <Login/>
-        </Box>
+        <Provider>
+            <Box css={wrapperStyle}>
+                <Login/>
+            </Box>
+        </Provider>
     );
 }
 

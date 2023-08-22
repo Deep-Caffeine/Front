@@ -1,6 +1,6 @@
 export const flexRowCentering = {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "row" as const,
     justifyContent: "center",
     alignItems: "center",
 }
