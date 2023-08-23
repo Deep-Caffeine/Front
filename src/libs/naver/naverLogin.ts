@@ -13,9 +13,9 @@ export const getNaverAuthUrl = (state: string): string => {
     state: state,
   };
 
-  const queryString = new URLSearchParams(params as any).toString();
+  const queryString = new URLSearchParams(params as Record<string, string>).toString();
   return `https://nid.naver.com/oauth2.0/authorize?${queryString}`;
-};
+}; 
 
 export const getNaverToken = async (
   code: string,
@@ -34,7 +34,7 @@ export const getNaverToken = async (
   try {
     const response = await axios.post<NaverTokenResponse>(
       'https://nid.naver.com/oauth2.0/token',
-      new URLSearchParams(body as any).toString(),
+        new URLSearchParams(body as Record<string,string>).toString(),
       {
         headers: {
           'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
