@@ -4,6 +4,7 @@ import Label from "../../../atoms/Label";
 import TextInput from "@/app/atoms/Input";
 import useLogin from "./useLogin";
 import { flexRowCentering, flexColumnCentering } from "@/app/styles/flex";
+import {poppinsMediumFontStyle, poppinsLargeFontStyle} from "@/app/styles/font"
 
 export default function Login(){
 
@@ -22,6 +23,7 @@ export default function Login(){
                     disabled={false}
                     width={212}
                     height={8}
+                    css={poppinsMediumFontStyle}
                 />
                 <TextInput
                     onChange={(e) => {handlePw(e)}}
@@ -29,6 +31,7 @@ export default function Login(){
                     disabled={false}
                     width={212}
                     height={8}
+                    css={poppinsMediumFontStyle}
                 />
             </Box>
         </Box>
@@ -50,20 +53,12 @@ const headerStyle = {
 const welcomeTextStyle = {
     marginRight: "5px",
     color: "#1F284F",
-    fontFamily: "Poppins",
-    fontSize: "24px",
-    fontStyle: "normal",
-    fontWeight: "500",
-    lineHeight: "36px",
+    ...poppinsLargeFontStyle
 }
 
 const fofoTextStyle = {
     color: "#3700B3",
-    fontFamily: "Poppins",
-    fontSize: "24px",
-    fontStyle: "normal",
-    fontWeight: "500",
-    lineHeight: "36px",
+    ...poppinsLargeFontStyle
 }
 
 const inputBoxStyle = {
