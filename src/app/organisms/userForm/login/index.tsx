@@ -2,6 +2,7 @@
 import Box from "../../../atoms/Box";
 import Label from "../../../atoms/Label";
 import TextInput from "@/app/atoms/Input";
+import Button from "@/app/atoms/Button";
 import useLogin from "./useLogin";
 import { flexRowCentering, flexColumnCentering } from "@/app/styles/flex";
 import {poppinsMediumFontStyle, poppinsLargeFontStyle} from "@/app/styles/font"
@@ -21,18 +22,22 @@ export default function Login(){
                     onChange={(e) => {handleId(e)}}
                     placeholder="아이디를 입력하세요"
                     disabled={false}
-                    width={212}
-                    height={8}
+                    width={262}
+                    height={16}
                     css={poppinsMediumFontStyle}
                 />
                 <TextInput
                     onChange={(e) => {handlePw(e)}}
                     placeholder="비밀번호를 입력하세요"
                     disabled={false}
-                    width={212}
-                    height={8}
+                    width={262}
+                    height={16}
                     css={poppinsMediumFontStyle}
                 />
+                <Button
+                    css={buttonStyle(287, 37)}
+                    onClick={()=>{}}
+                >로그인</Button>
             </Box>
         </Box>
     );
@@ -67,6 +72,13 @@ const inputBoxStyle = {
     gap: "10px"
 }
 
-const inputStyle = {
+const buttonStyle = (width: number, height: number) => ({
+    ...flexRowCentering,
+    width: `${width}px`,
+    height : `${height}px`,
     padding : "12px",
-}
+    border : "1px solid #3700B3",
+    borderRadius : "26px",
+    background: "#3700B3",
+    color: "white",
+})
