@@ -17,6 +17,7 @@
     "axios": "^1.4.0",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.16",
+    "googleapis": "^126.0.0",
     "jest": "^29.6.2",
     "jotai": "^2.3.1",
     "next": "13.4.16",

@@ -33,6 +33,7 @@ export default function Login(){
                     height={8}
                     css={poppinsMediumFontStyle}
                 />
+                <button>구글 로그인</button>
             </Box>
         </Box>
     );
