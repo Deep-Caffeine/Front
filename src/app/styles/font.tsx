@@ -4,7 +4,7 @@ export const poppinsSmallFontStyle = {
     fontWeight: 500,
     lineHeight: '17px',
     letterSpacing: '0em',
-    textAlign: 'left',
+    textAlign: 'left' as const,
   };  
 
 export const poppinsMediumFontStyle = {
@@ -13,7 +13,7 @@ export const poppinsMediumFontStyle = {
     fontWeight: 400,
     lineHeight: '24px',
     letterSpacing: '0em',
-    textAlign: 'left',
+    textAlign: 'left' as const,
 };
 
 export const poppinsLargeFontStyle = {
@@ -22,7 +22,7 @@ export const poppinsLargeFontStyle = {
     fontWeight: 500,
     lineHeight: '36px',
     letterSpacing: '0em',
-    textAlign: 'left',
+    textAlign: 'left' as const,
 };
 
 export const robotoMediumCenterFontStyle = {
@@ -31,7 +31,7 @@ export const robotoMediumCenterFontStyle = {
     fontWeight: 500,
     lineHeight: '20px',
     letterSpacing: '0em',
-    textAlign: 'center',
+    textAlign: 'center' as const,
 };
 
 export const robotoMediumFontStyle = {
@@ -40,7 +40,7 @@ export const robotoMediumFontStyle = {
     fontWeight: 500,
     lineHeight: '36px',
     letterSpacing: '0em',
-    textAlign: 'left',
+    textAlign: 'left' as const,
 };
   
 export const robotoLargeFontStyle = {
@@ -49,5 +49,5 @@ export const robotoLargeFontStyle = {
     fontWeight: 500,
     lineHeight: '36px',
     letterSpacing: '0em',
-    textAlign: 'left',
+    textAlign: 'left' as const,
 };
