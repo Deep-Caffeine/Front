@@ -36,7 +36,7 @@ export default function Account(){
                 <Box css={inputStyle}>
                     <Label css={inputTitleTextStyle}>비밀번호</Label>
                     <TextInput
-                        onChange={(e) => {handlePw(e), console.log(e.target.value), setInput(e.target.value)}}
+                        onChange={(e) => {handlePw(e), setInput(e.target.value)}}
                         placeholder="영문, 숫자, 특수문자 포함 8~20자"
                         disabled={false}
                         width={262}
@@ -50,7 +50,7 @@ export default function Account(){
                 <Box css={inputStyle}>
                     <Label css={inputTitleTextStyle}>비밀번호 확인</Label>
                     <TextInput
-                        onChange={(e) => {checkPw(e), console.log(e.target.value)}}
+                        onChange={(e) => {checkPw(e)}}
                         placeholder="비밀번호를 다시 입력해주세요"
                         disabled={false}
                         width={262}

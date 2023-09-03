@@ -16,7 +16,6 @@ export default function IsStrong({input}:PropsType){
   useEffect(()=>{
     if(input){
         handleScore(input)
-        console.log(score)  
       }
   }, [input])
   
