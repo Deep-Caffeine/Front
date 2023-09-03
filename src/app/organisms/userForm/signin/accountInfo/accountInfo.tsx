@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from "react";
 import Box from "@/app/atoms/Box";
 import Label from "@/app/atoms/Label";
@@ -43,7 +44,8 @@ export default function Account(){
                         type="password"
                         css={textInputStyle}
                     />
-                    <IsStrong input={input}></IsStrong>
+                    { input ?  <IsStrong input={input}></IsStrong> : null }
+                    
                 </Box>
                 <Box css={inputStyle}>
                     <Label css={inputTitleTextStyle}>비밀번호 확인</Label>
@@ -88,6 +90,7 @@ const titleTextStyle = {
     ...robotoLargeFontStyle,
     marginTop: "45px",
     marginBottom: "17px",
+    color: "var(--Primary-Color, #1F284F)"
 }
 
 const discribeTextStyle = {
@@ -125,7 +128,7 @@ const ismatchTextStyle = (isSame: boolean | null) => ({
     position: "absolute" as const,
     fontFamily: 'Poppins, sans-serif',
     fontSize: '11px',
-    fontWeight: 500,
+    fontWeight: "500",
     lineHeight: '17px',
     letterSpacing: '0em',
     textAlign: 'left' as const,

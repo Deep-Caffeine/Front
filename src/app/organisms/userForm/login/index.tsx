@@ -34,6 +34,7 @@ export default function Login({handleState}:LoginProps){
                     disabled={false}
                     width={262}
                     height={16}
+                    type="password"
                     css={textInputStyle}
                 />
                 <Button

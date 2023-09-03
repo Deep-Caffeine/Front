@@ -39,7 +39,6 @@ export default function IsStrong({input}:PropsType){
   return(
     <Box css={barBoxStyle}>
         {
-            score === 999 ? null : 
             <>
                 <Box css={redBar(score)}></Box>
                 <Box css={yellowBar(score)}></Box>
