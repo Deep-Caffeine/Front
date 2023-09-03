@@ -7,10 +7,12 @@ import useLogin from "./useLogin";
 import { flexRowCentering, flexColumnCentering } from "@/app/styles/flex";
 import {poppinsMediumFontStyle, poppinsLargeFontStyle} from "@/app/styles/font"
 
-export default function Login(){
+interface LoginProps{
+    handleState: React.Dispatch<React.SetStateAction<string>>
+}
 
+export default function Login({handleState}:LoginProps){
     const { handleId, handlePw } = useLogin()
-
     return(
         <Box css={wrapperStyle}>
             <Box css={headerStyle}>
@@ -69,7 +71,7 @@ export default function Login(){
                 </Box>
                 <Button
                     css={signUpWithEmail}
-                    onClick={() => {}}
+                    onClick={() => {handleState("signup")}}
                 >
                     이메일로 회원가입하기
                 </Button>

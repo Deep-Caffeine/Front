@@ -21,7 +21,6 @@ export default function TextInput({ onChange, value, placeholder, disabled, widt
             value={value}
             placeholder={placeholder}
             disabled={disabled}
-            type="text"
         />     
     )
 }
