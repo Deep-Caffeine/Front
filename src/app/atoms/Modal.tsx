@@ -1,33 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { css } from '@emotion/react';
 
 interface ModalProps {
   open: boolean;
   onClose: () => void;
   children: React.ReactNode;
 }
-
-const modalBackgroundStyle = css`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-`;
-
-const modalContentStyle = css`
-  background-color: #ffffff;
-  width: 80%;
-  max-width: 400px;
-  padding: 20px;
-  border-radius: 4px;
-`;
 
 export default function Modal({ open, onClose, children }: ModalProps) {
   if (!open) {
@@ -41,4 +19,25 @@ export default function Modal({ open, onClose, children }: ModalProps) {
       </div>
     </div>
   );
+}
+
+const modalBackgroundStyle = {
+  position: "fixed" as const,
+  top: "0",
+  left: "0",
+  rigth: "0",
+  backgroundColor : "rgba(0, 0, 0, 0.5)",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  zIndex: "999"
+}
+
+
+const modalContentStyle = {
+  backgroundColor: "#ffffff",
+  width: "80%",
+  maxWidth: "400px",
+  padding: "20px",
+  borderRadius: "4px"
 }
