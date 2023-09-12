@@ -54,13 +54,13 @@ export default function verification(){
             <Box css={textStyle}>
                 <Label>가입을 위해 본인의<br />휴대폰 번호를 인증해 주세요.</Label>
             </Box>
-            <Box>
+            <Box css={phoneBoxStyle}>
                 <Label css={poppinsSmallFontStyle}>통신사</Label>
-                <Dropdown
+                <Dropdown css={dropdownStyle}
                 onChange={handleChange}
                 value={selectedTelecom}
                 options={telecomOptions}
-                placeholder="통신사를 선택하세요"
+                placeholder="통신사"
                 />   
                 <TextInput css={phoneNumberInputStyle}
                 onChange={handlePhoneChange}
@@ -70,14 +70,14 @@ export default function verification(){
                 height={46}                 
                 />
             </Box>
-            <Box>
+            <Box >
                 <Label css={poppinsSmallFontStyle}>인증번호</Label>
                 <Box  css={authCodeWrapperStyle}>
                     <TextInput css={authCodeStyle}
                     onChange={handleAuthChange}
                     value={authCode}
                     placeholder="인증번호 6자리를 입력해주세요"
-                    width={316}
+                    width={314}
                     height={46}
                     />
                     <Button css={(phoneNumber.length === 11 && authCode.length === 6) ?         enabledBtnStyle : disabledBtnStyle}
@@ -109,12 +109,17 @@ const textStyle = {
     ...flexRowCentering,
     ...robotoMediumCenterFontStyle,
 }
+
+const phoneBoxStyle = {
+    marginBottom : "10px"
+}
 const dropdownStyle = {
-    width : "300px",
-    height : "300px",
+    width : "105px",
+    height : "71px",
     borderRadius : "8px",
     ...poppinsMediumFontStyle
 }
+
 
 const phoneNumberInputStyle = {
     gap : "8px",
