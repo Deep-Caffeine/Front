@@ -3,7 +3,7 @@
 // 사용자를 인증하고 토큰을 얻기 위해 네이버 로그인 연동을 위한 라우팅을 설정(임시)
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { getNaverToken } from '@/libs/naver/naverLogin';
+import { getNaverToken } from '@/app/libs/naver/naverLogin';
 
 
 const NaverAuthCallback = () => {

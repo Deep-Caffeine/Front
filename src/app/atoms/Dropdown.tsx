@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { css } from '@emotion/react';
+import { css,CSSObject } from '@emotion/react';
 
 export interface DropdownProps {
     onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -8,16 +8,14 @@ export interface DropdownProps {
     options: {value: string, label: string}[];
     placeholder?: string;
     disabled?: boolean;
+    children?: React.ReactNode;
 }
 
-const DropdownStyle = css` // 임시
-  width: 26px;
-`;
+
 
 export default function Dropdown({ onChange, value, options, placeholder = '', disabled = false }: DropdownProps) {
     return(
         <select
-             css={DropdownStyle}
              onChange={onChange}
              value={value}
              disabled={disabled}
