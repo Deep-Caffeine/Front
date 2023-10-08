@@ -8,32 +8,21 @@ import Label from "@/app/atoms/Label"
 import { flexRowCentering, flexColumnCentering } from "@/app/styles/flex";
 import { useState } from "react"
 import {poppinsMediumFontStyle, poppinsLargeFontStyle,robotoMediumCenterFontStyle,poppinsSmallFontStyle} from "@/app/styles/font"
+import { userNameAtom, nickNameAtom, birthAtom } from './JAtoms';
+import { useAtom } from 'jotai/react';
+import useUserInformation from "./useUserInformation"
 
 
 export default function userInformation(){
-    const [userName, setUserName] = useState("")
-    const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value; 
-        setUserName(value);
-    };
+    const [userName] = useAtom(userNameAtom);
+    const [nickName] = useAtom(nickNameAtom);
+    const [birth] = useAtom(birthAtom);
 
-    const [nickName, setNickName] = useState("")
-    const handleNickNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value; 
-        setNickName(value);
-    };
-
-    const [birth , setBirth] = useState("")
-    const handleBirthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value; 
-        // 숫자만 입력 가능하도록 처리
-        if (!value || /^[0-9\b]+$/.test(value)) {
-            // 6자리 제한 추가
-            if (value.length <= 6) {
-                setBirth(value);
-            }
-        }
-    };
+    const {
+        handleNameChange,
+        handleNickNameChange,
+        handleBirthChange
+    } = useUserInformation();
 
     return(
         <Box css={wrapperStyle}>
