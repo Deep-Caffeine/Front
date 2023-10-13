@@ -1,20 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
+import { BaseTypes } from '../tpyes/common';
 import { css } from '@emotion/react';
 
-export interface ButtonProps {
+export interface ButtonProps extends BaseTypes{
   onClick: () => void;
   children?: React.ReactNode;
   disabled?: boolean;
 }
 
-const ButtonStyle = css` // 임시
-  width: 26px;
-`;
-
-export default function Button({onClick, disabled=false} : ButtonProps){
+export default function Button({onClick, disabled=false, children, ...props} : ButtonProps){
   return (
-    <button css={ButtonStyle} onClick={onClick} disabled={disabled}>
+    <button {...props as any}  onClick={onClick} disabled={disabled}>
+        {children}
     </button>
   );
 };

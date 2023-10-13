@@ -12,15 +12,15 @@ export interface InputProps extends BaseTypes{
     height: number;
 }
 
-export default function TextInput({ onChange, value, placeholder, disabled, width, height }: InputProps) {
+export default function TextInput({ onChange, value, placeholder, disabled, width, height, ...props }: InputProps) {
     return(
         <input
+            {...props}
             css={InputStyle(width, height)}
             onChange={onChange}
             value={value}
             placeholder={placeholder}
             disabled={disabled}
-            type="text"
         />     
     )
 }

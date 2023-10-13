@@ -3,7 +3,7 @@ import React from "react";
 import UserForm from "./organisms/userForm/intex";
 import "./page.css"
 import { css, Global } from '@emotion/react';
-
+import Account from "./organisms/userForm/signin/accountInfo/accountInfo";
 export default function Home() {
     return (
       <>
