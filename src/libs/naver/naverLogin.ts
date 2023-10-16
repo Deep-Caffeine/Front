@@ -1,5 +1,5 @@
 import axios from 'axios';
-import ResponseError, {isApiErrorResponse}  from "@/utils/ResponseError";
+import ResponseError, {isApiErrorResponse}  from "@/app/utils/ResponseError";
 import { NaverAccessRequest,NaverTokenRequest,NaverTokenResponse } from './naver';
 
 export const getNaverAuthUrl = (state: string): string => {
