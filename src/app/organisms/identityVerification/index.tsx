@@ -2,19 +2,20 @@
 import React, { useState } from 'react';
 import { Provider } from 'jotai'
 import Box from "../../atoms/Box";
-import UserInformation from './userInformation';
-import Verification from './verification';
+import UserInformation from './userInformation/userInformation';
+import Verification from './verification/verification';
 
 import { flexColumnCentering } from "@/app/styles/flex";
 
 export default function IdentityVerification(){
-    const [state, setState] = useState<string>("profileEdit")
+    const [state, setState] = useState<string>("auth")
     const handleComponent = () => {
         switch (state) {
             case 'profileEdit':
-              return <UserInformation/>;
+                return <Verification/>;
             case 'auth':
-              return <Verification/>;
+              return <UserInformation/>;
+              
         }
     }
     return(
