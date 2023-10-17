@@ -8,20 +8,20 @@ import Label from "@/app/atoms/Label"
 import { flexRowCentering, flexColumnCentering } from "@/app/styles/flex";
 import { useState } from "react"
 import {poppinsMediumFontStyle, poppinsLargeFontStyle,robotoMediumCenterFontStyle,poppinsSmallFontStyle} from "@/app/styles/font"
-import { userNameAtom, nickNameAtom, birthAtom } from './JAtoms';
+import { nickNameAtom, genderAtom , birthAtom } from './JAtoms';
 import { useAtom } from 'jotai/react';
 import useUserInformation from "./useUserInformation"
 
 
 export default function userInformation(){
-    const [userName] = useAtom(userNameAtom);
     const [nickName] = useAtom(nickNameAtom);
+    const [gender, setGender] = useAtom(genderAtom);
     const [birth] = useAtom(birthAtom);
 
     const {
-        handleNameChange,
         handleNickNameChange,
-        handleBirthChange
+        handleGenderChange,
+        handleBirthChange,
     } = useUserInformation();
 
     return(
@@ -30,25 +30,21 @@ export default function userInformation(){
                 <Label css={headerStyle}>회원정보 입력</Label>
             </Box>
             <Box css={textStyle}>
-                <Label>편리한 서비스 제공을 위한<br/>프로필 정보를 입력해주세요</Label>
+                <Label>편리한 서비스 제공을 위한 프로필 정보를 입력해주세요</Label>
             </Box>
-            <Box>
-                <Label css={poppinsSmallFontStyle}>이름</Label>
-                <TextInput css ={InputStyle}
-                onChange={handleNameChange}
-                value={userName}
-                placeholder="이름"
-                width={341}
-                height={46}/>
-            </Box>
-            <Box>
+            <Box css={nickNameWrapperStyle}>
                 <Label css={poppinsSmallFontStyle}>닉네임</Label>
                 <TextInput css={nickNameInputStyle}
                 onChange={handleNickNameChange}
                 value={nickName}
-                placeholder="세심한 빨간 사과"
-                width={341}
+                placeholder="원하는 닉네임을 입력하거나, 랜덤으로 설정해주세요"
+                width={314}
                 height={46}/>
+            </Box>
+            <Box>
+                <Label css={poppinsSmallFontStyle}>성별</Label>
+                <Button onClick={() => handleGenderChange('male')} style={gender === 'male' ? {...selectedGenderStyle, ...manBtnStyle} : {...unselectedGenderStyle, ...manBtnStyle}}>남자</Button>
+                <Button onClick={() => handleGenderChange('female')} style={gender === 'female' ? selectedGenderStyle : unselectedGenderStyle}>여자</Button>
             </Box>
             <Box>
                 <Label css={poppinsSmallFontStyle}>생년월일</Label>
@@ -57,24 +53,27 @@ export default function userInformation(){
                         onChange={handleBirthChange}
                         value={birth}
                         placeholder="생년월일 6자리"
-                        width={341}
+                        width={314}
                         height={46}/>
-                    <Button
-                        css={(birth.length === 6 && userName.length >= 1 && nickName.length >= 1) ? enabledBtnStyle : disabledBtnStyle}
-                        onClick={() => {}}
-                        disabled={!(birth.length === 6 && userName.length >= 1 && nickName.length >= 1)}>
-                        다음
-                    </Button>
                 </Box>
-                
+            </Box>
+            <Box css={btnWrapperStyle}>
+                <Label>
+                    뒤로 가기     
+                </Label>
+                <div style={spacerStyle} />
+                <Button
+                    css={(birth.length === 6  && nickName.length >= 1 && gender) ? enabledBtnStyle : disabledBtnStyle}
+                    onClick={() => {}}
+                    disabled={!(birth.length === 6  && nickName.length >= 1 && gender)}>
+                    다음
+                </Button>
             </Box>
         </Box>
     )
 }
 
 const wrapperStyle = {
-    width: "480px",
-    height: "500px",
     borderRadius: "15px",
     backgroundColor: "rgba(255, 255, 255, 0.95)",
     margin : "auto",
@@ -82,15 +81,19 @@ const wrapperStyle = {
 }
 
 const headerStyle = {
-    marginTop : "15px",
+    marginTop : "38px",
     ...poppinsLargeFontStyle
 }
 
 const textStyle = {
     marginTop: "20px",
-    marginBottom : "10px",
+    marginBottom : "58px",
     ...flexRowCentering,
     ...robotoMediumCenterFontStyle,
+}
+const nickNameWrapperStyle = {
+    marginLeft : "84px",
+    marginRight : "84px"
 }
 
 const InputStyle = {
@@ -108,17 +111,48 @@ const nickNameInputStyle = {
     border : "1px solid black",
     borderRadius : "10px",
     padding : "0px 0px 0px 8px",
-    marginBottom : "20px",
-    marginTop : "5px",
+    marginBottom : "10px",
+    marginTop : "4px",
     ...poppinsMediumFontStyle
 }
+const genderButtonStyle = {
+    width : "158px",
+    height : "36px",
+    borderRadius: "10px", 
+    gap : "30px", 
+    marginTop : "4px",
+    marginBottom : "10px",
+  };
+const manBtnStyle = {
+    marginRight : "10px",
+    ...genderButtonStyle
+}
+  const selectedGenderStyle = {
+     ...genderButtonStyle,
+     background:'#3700B3', 
+     color:'#FFFFFF'
+  };
+  
+  const unselectedGenderStyle = { 
+     ...genderButtonStyle,
+     background:'#FFFFFF', 
+     color:'#575757'  
+  };
 
 const birthWrapperStyle = {
     ...flexColumnCentering
 }
 
+const btnWrapperStyle = {
+    marginTop : "79px",
+    marginBottom:  "30px",
+    display: 'flex',
+    justifyContent: 'space-between',
+    ...robotoMediumCenterFontStyle
+}
+
 const enabledBtnStyle = {
-    width : "341px",
+    width : "123px",
     height : "40px",
     gap : "8px",
     background: "#3700B3", 
@@ -127,18 +161,19 @@ const enabledBtnStyle = {
     padding: "6px 12px 6px 12px",
     ...poppinsMediumFontStyle,
     textAlign: "center" as const,
-    marginTop : "20px",
 }
 
 const disabledBtnStyle = {
-    width : "341px",
+    width : "123px",
     height : "40px",
     gap : "8px",
-    background : "#FFFFFF" ,
+    background : "#D9D9D9" ,
     borderRadius: "30px", 
-    color: "#575757",
+    color: "#FFFFFF",
     padding: "6px 12px 6px 12px", 
     ...poppinsMediumFontStyle,
     textAlign: "center" as const,
-    marginTop : "20px",
+}
+const spacerStyle = {
+    width: '229px', // 여기서 원하는 px 값을 설정
 }
