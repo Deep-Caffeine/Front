@@ -24,10 +24,24 @@ export default function useUserInformation() {
     const handleGenderChange = (newGender: 'male' | 'female') => {
        setGender(newGender);
     };
+    const adjectives = ["심심한", "열심히하는", "유능한", "창조적인", "재미있는"];
+    const nouns = ["사과", "사자", "컴퓨터", "공학자", "음악가"];
+    function generateRandomNickname() {
+        const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+        const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+        const randomNumber = Math.floor(Math.random() * 100) + 1; // 1 ~ 100 사이의 랜덤 정수
+
+        return `${randomAdjective} ${randomNoun}${randomNumber}`; 
+    }
+    function handleRandomNickNameChange(){
+        setNickName(generateRandomNickname());
+     }
    return{
 
        handleNickNameChange,
        handleBirthChange,
        handleGenderChange,
+       generateRandomNickname,
+       handleRandomNickNameChange,
    }
 }

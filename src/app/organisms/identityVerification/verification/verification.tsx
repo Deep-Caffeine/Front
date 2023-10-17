@@ -8,44 +8,24 @@ import Label from "@/app/atoms/Label"
 import { flexRowCentering, flexColumnCentering } from "@/app/styles/flex";
 import { useState } from "react"
 import {poppinsMediumFontStyle, poppinsLargeFontStyle,robotoMediumCenterFontStyle,poppinsSmallFontStyle} from "@/app/styles/font"
-
+import useVerification from "./useVerification"
+import { useAtom } from 'jotai';
+import { selectedTelecomAtom, phoneNumberAtom, authCodeAtom } from './JAtoms';
 
 export default function verification(){
-    const [selectedTelecom, setSelectedTelecom] = useState('');
-
+    
     const telecomOptions = [
         { value: 'skt', label: 'SKT' },
         { value: 'lg', label: 'LG U+' },
         { value: 'kt', label: 'KT' }
     ];
-    
-    const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedTelecom(event.target.value);
-    };
-
-    const [phoneNumber, setPhoneNumber] = useState("")
-    const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        // 숫자만 입력 가능하도록 처리
-        if (!value || /^[0-9\b]+$/.test(value)) {
-            // 11자리 제한 추가
-            if (value.length <= 11) {
-                setPhoneNumber(value);
-            }
-        }
-    };
-
-    const [authCode, setAuthCode] = useState("")
-    const handleAuthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        // 숫자만 입력 가능하도록 처리
-        if (!value || /^[0-9\b]+$/.test(value)) {
-            // 6자리 제한 추가
-            if (value.length <= 6) {
-                setAuthCode(value);
-            }
-        }
-    };
+    const {selectedTelecom,
+        phoneNumber,
+        authCode,
+        handleChange,
+        handlePhoneChange,
+        handleAuthChange} 
+      = useVerification();
     return(
         <Box css={wrapperStyle}>
             <Box>
@@ -54,7 +34,8 @@ export default function verification(){
             <Box css={textStyle}>
                 <Label>가입을 위해 본인의<br />휴대폰 번호를 인증해 주세요.</Label>
             </Box>
-            <Box css={phoneBoxStyle}>
+            
+            <Box>
                 <Label css={poppinsSmallFontStyle}>통신사</Label>
                 <Dropdown css={dropdownStyle}
                 onChange={handleChange}
@@ -66,11 +47,16 @@ export default function verification(){
                 onChange={handlePhoneChange}
                 value={phoneNumber}
                 placeholder="휴대폰 번호 11자리"
-                width={189} 
+                width={174} 
                 height={46}                 
                 />
+                <Button css={phoneNumberBtn}
+                    onClick={() => {}}
+                    disabled={phoneNumber.length !== 11}>
+                    전송
+                </Button>
             </Box>
-            <Box >
+            <Box>
                 <Label css={poppinsSmallFontStyle}>인증번호</Label>
                 <Box  css={authCodeWrapperStyle}>
                     <TextInput css={authCodeStyle}
@@ -80,13 +66,21 @@ export default function verification(){
                     width={314}
                     height={46}
                     />
-                    <Button css={(phoneNumber.length === 11 && authCode.length === 6) ?         enabledBtnStyle : disabledBtnStyle}
+                    
+                </Box>
+            </Box>
+            <Box css={btnWrapperStyle}>
+            <Label>
+                뒤로 가기     
+            </Label>
+                <div style={spacerStyle} />
+                <Button css={(phoneNumber.length === 11 && authCode.length === 6) ?         enabledBtnStyle : disabledBtnStyle}
                         onClick={() => {}}
                         disabled={authCode.length !== 6 || phoneNumber.length !== 11}>
                         다음
                     </Button>
-                </Box>
             </Box>
+            
         </Box>
     )
 }
@@ -96,47 +90,67 @@ const wrapperStyle = {
     height: "500px",
     borderRadius: "15px",
     backgroundColor: "rgba(255, 255, 255, 0.95)",
-    margin : "auto",
     ...flexColumnCentering,
 }
 
 const headerStyle = {
+    marginTop : "38px",
     ...poppinsLargeFontStyle
 }
 const textStyle = {
     marginTop: "20px",
-    marginBottom : "20px",
+    marginBottom : "38px",
     ...flexRowCentering,
     ...robotoMediumCenterFontStyle,
 }
-
 const phoneBoxStyle = {
-    marginBottom : "10px"
+    marginBottom : "10px",
+    marginLeft : "83px",
+    marginRight : "83px",
+    ...flexRowCentering
 }
 const dropdownStyle = {
-    width : "105px",
-    height : "71px",
+    
+    width : "68px",
+    height : "46px",
     borderRadius : "8px",
+    border: "1px solid #0000001A",
+    marginTop : "10px",
+    marginBottom :"10px",
     ...poppinsMediumFontStyle
 }
 
 
 const phoneNumberInputStyle = {
-    gap : "8px",
-    marginLeft :"20px",
+    width : "174px",
+    height : "46px",
+    marginLeft :"6px",
+    marginRight : "6px",
+    padding : "0px",
+    paddingLeft : "6px",
+    border: "1px solid #0000001A",
     ...poppinsMediumFontStyle,
 }
+const phoneNumberBtn = {
+    width : "59px",
+    height : "46px",
+    borderRadius : "10px",
+    border: "1px solid #0000001A",
+}
 const authCodeWrapperStyle = {
+    width : "314px",
     ...flexColumnCentering
 }
 const authCodeStyle = {
+    width: "314px",
+    height : "46px",
     marginTop:  "10px",
-    marginBottom : "80px",
-    padding: "6px 12px 6px 12px",
+    padding : "0px",
+    paddingLeft : "6px",
 
 }
 const enabledBtnStyle = {
-    width : "341px",
+    width : "123px",
     height : "40px",
     gap : "8px",
     background: "#3700B3", 
@@ -144,17 +158,38 @@ const enabledBtnStyle = {
     color: "#FFFFFF",
     padding: "6px 12px 6px 12px",
     ...poppinsMediumFontStyle,
+    border: "1px solid #0000001A",
+
     textAlign: "center" as const,
 }
 
 const disabledBtnStyle = {
-    width : "341px",
+    width : "123px",
     height : "40px",
     gap : "8px",
-    background: "#DBDBDB", 
+    background : "#D9D9D9" ,
     borderRadius: "30px", 
-    color: "#575757",
+    color: "#FFFFFF",
     padding: "6px 12px 6px 12px", 
     ...poppinsMediumFontStyle,
+    border: "1px solid #0000001A",
+
     textAlign: "center" as const,
+}
+const flexColumn = {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+ };
+ 
+ const btnWrapperStyle = {
+    marginTop : "79px",
+    marginBottom:  "30px",
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center', 
+    ...robotoMediumCenterFontStyle
+}
+const spacerStyle = {
+    width: '229px',
 }

@@ -1,9 +1,9 @@
 "use client"
 import React from "react";
 import UserForm from "./organisms/userForm";
-import Verification from "./organisms/identityVerification/verification";
+import Verification from "./organisms/identityVerification/verification/verification";
 import IdentityVerification from "./organisms/identityVerification";
-import UserInformation from "./organisms/identityVerification/userInformation";
+import UserInformation from "./organisms/identityVerification/userInformation/userInformation";
 import "./page.css"
 import { css, Global } from '@emotion/react';
 import Account from "./organisms/userForm/signin/accountInfo/accountInfo";
