@@ -5,6 +5,7 @@ import Box from "../../atoms/Box";
 import Login from "./login";
 import Account from './signin/accountInfo/accountInfo';
 import { flexColumnCentering } from "@/app/styles/flex";
+import Identify from './signin/identity/identify';
 
 export default function UserForm(){
     const [state, setState] = useState<string>("login")
@@ -14,6 +15,8 @@ export default function UserForm(){
               return <Login handleState={setState}/>;
             case 'signup':
               return <Account/>;
+            case 'identify':
+              return <Identify/>;
         }
     }
     return(

@@ -76,6 +76,12 @@ export default function Login({handleState}:LoginProps){
                 >
                     이메일로 회원가입하기
                 </Button>
+                <Button
+                    css={signUpWithEmail}
+                    onClick={() => {handleState("identify")}}
+                >
+                    본인인증
+                </Button>
             </Box>
         </Box>
     );
