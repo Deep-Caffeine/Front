@@ -133,7 +133,7 @@ const returnStyle = {
     fontWeight: "400",
     fontSize:"12px",
     lineHeight:"14px",
-    position:"absolute",
+    position:"absolute" as const,
     bottom:"43px",
     left:"50px",
     width:"48px",
