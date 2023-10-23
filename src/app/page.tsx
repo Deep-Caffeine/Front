@@ -1,6 +1,7 @@
 "use client"
 import React from "react";
 import UserForm from "./organisms/userForm/intex";
+import SchoolForm from "./organisms/SchoolForm/index"
 import "./page.css"
 import { css, Global } from '@emotion/react';
 import Account from "./organisms/userForm/signin/accountInfo/accountInfo";
