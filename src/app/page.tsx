@@ -1,5 +1,6 @@
 "use client"
 import React from "react";
+import SchoolForm from "./organisms/SchoolForm/index"
 import UserForm from "./organisms/userForm";
 import Verification from "./organisms/identityVerification/verification";
 import IdentityVerification from "./organisms/identityVerification";
