@@ -1,23 +1,22 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { css } from '@emotion/react';
-
-export interface DropdownProps {
+import { css,CSSObject } from '@emotion/react';
+import { BaseTypes } from "@/app/tpyes/common";
+export interface DropdownProps extends BaseTypes {
     onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
     value: string;
     options: {value: string, label: string}[];
     placeholder?: string;
     disabled?: boolean;
+    children?: React.ReactNode;
 }
 
-const DropdownStyle = css` // 임시
-  width: 26px;
-`;
 
-export default function Dropdown({ onChange, value, options, placeholder = '', disabled = false }: DropdownProps) {
+
+export default function Dropdown({ onChange, value, options, placeholder = '', disabled = false, ...props}: DropdownProps) {
     return(
         <select
-             css={DropdownStyle}
+            {...props}
              onChange={onChange}
              value={value}
              disabled={disabled}
