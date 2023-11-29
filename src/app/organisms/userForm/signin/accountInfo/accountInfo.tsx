@@ -1,3 +1,4 @@
+'use client'
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from "react";
 import Box from "@/app/atoms/Box";
@@ -7,16 +8,28 @@ import { poppinsMediumFontStyle, robotoLargeFontStyle, robotoMediumFontStyle, po
 import useAccount from "./useAccount";
 import Button from "@/app/atoms/Button";
 import IsStrong from "@/app/libs/isStrong";
+import { usePathname, useRouter } from 'next/navigation';
+import { useAtom } from "jotai";
+import { newAccountInfo } from "./JAtom";
 
 export default function Account(){
+    const router = useRouter();
+    const [accountInfo, setAccountInfo] = useAtom(newAccountInfo);
     const [input, setInput] = useState<any>()
     const {
         handleId,
         handlePw,
         checkPw,
-        isSame
+        isSame,
+        isFormComplete,
     } = useAccount()
     
+    const handleClick = () => {
+        if (isFormComplete()) {
+            setAccountInfo({ email: accountInfo.email, password: accountInfo.password });
+            router.push('/UserInformationPage');
+        }
+    };
     return(
         <Box css={wrapperStyle}>
             <Label css={titleTextStyle}>회원가입</Label>
@@ -62,10 +75,10 @@ export default function Account(){
                 </Box>
             </Box>
             <Button
-                onClick={() => {}}
-                css={signUpButtonStyle}
-            >
-                가입하기
+                onClick={handleClick}
+                css={isFormComplete() ? enabledBtnStyle : disabledBtnStyle}
+                >
+                다음
             </Button>
         </Box>
     );
@@ -108,19 +121,31 @@ const inputStyle = {
     position: "relative" as const,
 }
 
-const signUpButtonStyle = {
-    marginTop: "15px",
-    display: "flex",
-    width: "285px",
-    height: "40px",
-    padding: "6px 12px",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "8px",
-    flexShrink: "0",
-    borderRadius: "30px",
-    background: "#DBDBDB",
-    border: "1px solid #DBDBDB",
+const enabledBtnStyle = {
+    width : "123px",
+    height : "40px",
+    gap : "8px",
+    background: "#3700B3", 
+    borderRadius : "30px",
+    color: "#FFFFFF",
+    padding: "6px 12px 6px 12px",
+    ...poppinsMediumFontStyle,
+    textAlign: "center" as const,
+    border: "1px solid #0000001A",
+
+}
+
+const disabledBtnStyle = {
+    width : "123px",
+    height : "40px",
+    gap : "8px",
+    background : "#D9D9D9" ,
+    borderRadius: "30px", 
+    color: "#FFFFFF",
+    padding: "6px 12px 6px 12px", 
+    ...poppinsMediumFontStyle,
+    textAlign: "center" as const,
+    border: "1px solid #0000001A",
 
 }
 

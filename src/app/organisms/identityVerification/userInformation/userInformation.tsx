@@ -1,30 +1,50 @@
 /** @jsxImportSource @emotion/react */
 
-import Dropdown from "@/app/atoms/Dropdown"
 import TextInput from "@/app/atoms/Input"
 import Box from "@/app/atoms/Box"
 import Button from "@/app/atoms/Button"
 import Label from "@/app/atoms/Label"
 import { flexRowCentering, flexColumnCentering } from "@/app/styles/flex";
-import { useState } from "react"
 import {poppinsMediumFontStyle, poppinsLargeFontStyle,robotoMediumCenterFontStyle,poppinsSmallFontStyle} from "@/app/styles/font"
 import { nickNameAtom, genderAtom , birthAtom, } from './JAtoms';
 import { useAtom } from 'jotai/react';
 import useUserInformation from "./useUserInformation"
 import RandomIcon from './RandomIcon';
-
+import { CSSObject } from '@emotion/react';
+import { useRouter } from "next/router";
+import { newAccountInfo } from "../../userForm/signin/accountInfo/JAtom";
 export default function userInformation(){
+
+    const router = useRouter();
+
     const [nickName] = useAtom(nickNameAtom);
     const [gender, setGender] = useAtom(genderAtom);
     const [birth] = useAtom(birthAtom);
-    
+    const [accountInfo] = useAtom(newAccountInfo);
     const {
+        phoneNumber,
         handleNickNameChange,
         handleGenderChange,
         handleBirthChange,
         generateRandomNickname,
-        handleRandomNickNameChange
+        handleRandomNickNameChange,
+        sendSignupData,
     } = useUserInformation();
+
+    const handleClick = async () => {
+        sendSignupData
+        console.log("이메일: ", accountInfo.email); // 이메일 출력
+        console.log("패스워드: ", accountInfo.password)
+        console.log("폰번호", phoneNumber)
+        console.log("닉네임: ", nickName); // 닉네임 출력
+        console.log("성별: ", gender); // 성별 출력
+        console.log("생년월일: ", birth); // 생년월일 출력
+        
+        
+        
+        // router.push('/UserInformationPage');
+        
+      }
 
     return(
         <Box css={wrapperStyle}>
@@ -51,8 +71,8 @@ export default function userInformation(){
             </Box>
             <Box>
                 <Label css={poppinsSmallFontStyle}>성별</Label>
-                <Button onClick={() => handleGenderChange('male')} style={gender === 'male' ? {...selectedGenderStyle, ...manBtnStyle} : {...unselectedGenderStyle, ...manBtnStyle}}>남자</Button>
-                <Button onClick={() => handleGenderChange('female')} style={gender === 'female' ? selectedGenderStyle : unselectedGenderStyle}>여자</Button>
+                <Button onClick={() => handleGenderChange('남자')} style={gender === 'male' ? {...selectedGenderStyle, ...manBtnStyle} : {...unselectedGenderStyle, ...manBtnStyle}}>남자</Button>
+                <Button onClick={() => handleGenderChange('여자')} style={gender === 'female' ? selectedGenderStyle : unselectedGenderStyle}>여자</Button>
             </Box>
             <Box>
                 <Label css={poppinsSmallFontStyle}>생년월일</Label>
@@ -72,7 +92,7 @@ export default function userInformation(){
                 <div style={spacerStyle} />
                 <Button
                     css={(birth.length === 6  && nickName.length >= 1 && gender) ? enabledBtnStyle : disabledBtnStyle}
-                    onClick={() => {}}
+                    onClick={handleClick} 
                     disabled={!(birth.length === 6  && nickName.length >= 1 && gender)}>
                     다음
                 </Button>
@@ -99,12 +119,14 @@ const textStyle = {
     ...flexRowCentering,
     ...robotoMediumCenterFontStyle,
 }
-const nickNameWrapperStyle = {
+const nickNameWrapperStyle : CSSObject = {
+    boxSizing : 'border-box',
     marginLeft : "84px",
     marginRight : "84px"
 }
 
 const InputStyle = {
+    
     gap : "30px",
     border: "1px solid #0000001A",
     borderRadius : "10px",
@@ -115,7 +137,8 @@ const InputStyle = {
     ...poppinsMediumFontStyle
 }
 
-const nickNameInputStyle = {
+const nickNameInputStyle: CSSObject = {
+    boxSizing : 'border-box',
     gap : "30px",
     border: "1px solid #0000001A",
     borderRadius : "10px",
@@ -125,7 +148,7 @@ const nickNameInputStyle = {
     ...poppinsMediumFontStyle
 }
 const genderButtonStyle = {
-    width : "158px",
+    width : "152px",
     height : "36px",
     borderRadius: "10px", 
     border: "1px solid #0000001A",

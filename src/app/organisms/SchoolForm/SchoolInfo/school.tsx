@@ -26,6 +26,7 @@ export default function SchoolForm() {
     handleDepartment,
     handleStatus,
     handleGrade,
+
   } = useSchool();
 
   const [schoolInfo] = useAtom(SchoolInfo);

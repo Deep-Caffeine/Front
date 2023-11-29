@@ -2,10 +2,13 @@
 
 import { useAtom } from "jotai";
 import { nickNameAtom, genderAtom, birthAtom } from './JAtoms';
-
+import { newAccountInfo } from "../../userForm/signin/accountInfo/JAtom";
+import { phoneNumberAtom } from "../../identityVerification/verification/JAtoms";
 export default function useUserInformation() {
-
+    
+    const [phoneNumber, setPhoneNumber] = useAtom(phoneNumberAtom);
     const [nickName, setNickName] = useAtom(nickNameAtom);
+    const [accountInfo] = useAtom(newAccountInfo);
     const handleNickNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setNickName(event.target.value);
     };
@@ -20,8 +23,8 @@ export default function useUserInformation() {
             }
         }
     };
-    const [, setGender] = useAtom(genderAtom);
-    const handleGenderChange = (newGender: 'male' | 'female') => {
+    const [gender, setGender] = useAtom(genderAtom);
+    const handleGenderChange = (newGender: '남자' | '여자') => {
        setGender(newGender);
     };
     const adjectives = ["심심한", "열심히하는", "유능한", "창조적인", "재미있는"];
@@ -36,12 +39,40 @@ export default function useUserInformation() {
     function handleRandomNickNameChange(){
         setNickName(generateRandomNickname());
      }
-   return{
 
+     //api 통신
+     const sendSignupData = async () => {
+        const res = await fetch('http://cloud.swdev.kr:4003/user', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: accountInfo.email,
+            password: accountInfo.password,
+            nickname: nickName,
+            gender: gender,
+            birth: birth,
+            phoneNumber: phoneNumber,
+          })
+        });
+      
+        if (res.ok) {
+            alert('회원가입이 완료되었습니다.');
+        } else {
+            const errorData = await res.json();
+            console.error(errorData);
+        }
+      };
+   return{
+    phoneNumber,
        handleNickNameChange,
        handleBirthChange,
        handleGenderChange,
        generateRandomNickname,
        handleRandomNickNameChange,
+       sendSignupData,
+       accountInfo
+      
    }
 }

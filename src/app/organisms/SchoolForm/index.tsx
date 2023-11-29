@@ -2,7 +2,7 @@
 import React from 'react';
 import { Provider } from 'jotai'
 import Box from "../../atoms/Box";
-import SchoolForm from './SchoolInfo'; // Assuming you have a SchoolForm component.
+import SchoolForm from './SchoolInfo/school'; // Assuming you have a SchoolForm component.
 import { flexColumnCentering } from "@/app/styles/flex";
 
 export default function UserForm(){

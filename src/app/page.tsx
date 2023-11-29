@@ -17,7 +17,7 @@ export default function Home() {
         `}
       />
       
-      <IdentityVerification></IdentityVerification>
+      <Account></Account>
       </>
     );
   }

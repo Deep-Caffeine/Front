@@ -3,6 +3,7 @@ import { newAccountInfo } from "./JAtom"
 import { useState } from "react"
 
 export default function useAccount(){
+    
     const [accountInfo, setAccountInfo] = useAtom(newAccountInfo)
     const [isSame, setIsSame] = useState<boolean | null>(null)
 
@@ -35,11 +36,18 @@ export default function useAccount(){
             setIsSame(null)
         }
     }
+    const isFormComplete = () => {
+        return accountInfo.email && accountInfo.password && isSame !== null;
+      };
     
+      
     return{
         handleId,
         handlePw,
         checkPw,
-        isSame
+        isSame,
+        isFormComplete,
+        accountInfo
+        
     }
 }

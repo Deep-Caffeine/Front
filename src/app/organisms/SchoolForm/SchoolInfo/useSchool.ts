@@ -3,7 +3,6 @@ import { SchoolInfo } from "./JAtom";
 
 export default function useSchool(){
     const [schoolInfo, setSchoolInfo] = useAtom(SchoolInfo)
-
     const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newData = {
             ...schoolInfo,
@@ -45,10 +44,13 @@ export default function useSchool(){
          setSchoolInfo(newData);
      };
 
+     // 백엔드 api
+     
+
      return{
           handleName,
           handleDepartment ,
           handleStatus ,
-          handleGrade 
+          handleGrade,
      };
 }

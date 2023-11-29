@@ -11,9 +11,11 @@ import {poppinsMediumFontStyle, poppinsLargeFontStyle,robotoMediumCenterFontStyl
 import useVerification from "./useVerification"
 import { useAtom } from 'jotai';
 import { selectedTelecomAtom, phoneNumberAtom, authCodeAtom } from './JAtoms';
+import { useRouter } from 'next/navigation';
 
 export default function verification(){
-    
+    const router = useRouter();
+
     const telecomOptions = [
         { value: 'skt', label: 'SKT' },
         { value: 'lg', label: 'LG U+' },
@@ -74,8 +76,9 @@ export default function verification(){
                 뒤로 가기     
             </Label>
                 <div style={spacerStyle} />
-                <Button css={(phoneNumber.length === 11 && authCode.length === 6) ?         enabledBtnStyle : disabledBtnStyle}
-                        onClick={() => {}}
+                <Button
+                onClick={() => router.push('/UserInformationPage')} // 임시로 해놓은거
+                css={(phoneNumber.length === 11 && authCode.length === 6) ?         enabledBtnStyle : disabledBtnStyle}
                         disabled={authCode.length !== 6 || phoneNumber.length !== 11}>
                         다음
                     </Button>

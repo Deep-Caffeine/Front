@@ -4,15 +4,16 @@ import { Provider } from 'jotai'
 import Box from "../../atoms/Box";
 import UserInformation from './userInformation/userInformation';
 import Verification from './verification/verification';
-
+import Chat from '../chat/Chat';
+import Signup from '../userForm/signin';
 import { flexColumnCentering } from "@/app/styles/flex";
-
+import Account from '../userForm/signin/accountInfo/accountInfo';
 export default function IdentityVerification(){
-    const [state, setState] = useState<string>("auth")
+    const [state, setState] = useState<string>("profileEdit")
     const handleComponent = () => {
         switch (state) {
             case 'profileEdit':
-                return <Verification/>;
+                return <UserInformation/>;
             case 'auth':
               return <UserInformation/>;
               

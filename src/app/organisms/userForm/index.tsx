@@ -7,7 +7,7 @@ import Account from './signin/accountInfo/accountInfo';
 import { flexColumnCentering } from "@/app/styles/flex";
 
 export default function UserForm(){
-    const [state, setState] = useState<string>("login")
+    const [state, setState] = useState<string>("signup")
     const handleComponent = () => {
         switch (state) {
             case 'login':
