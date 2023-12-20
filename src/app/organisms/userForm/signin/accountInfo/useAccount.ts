@@ -1,4 +1,4 @@
-import { useAtom } from "jotai/react"
+import { useAtom } from "jotai"
 import { newAccountInfo } from "./JAtom"
 import { useState } from "react"
 

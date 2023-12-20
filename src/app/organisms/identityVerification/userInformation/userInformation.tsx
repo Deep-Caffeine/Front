@@ -1,3 +1,4 @@
+'use client'
 /** @jsxImportSource @emotion/react */
 
 import TextInput from "@/app/atoms/Input"
@@ -7,20 +8,24 @@ import Label from "@/app/atoms/Label"
 import { flexRowCentering, flexColumnCentering } from "@/app/styles/flex";
 import {poppinsMediumFontStyle, poppinsLargeFontStyle,robotoMediumCenterFontStyle,poppinsSmallFontStyle} from "@/app/styles/font"
 import { nickNameAtom, genderAtom , birthAtom, } from './JAtoms';
-import { useAtom } from 'jotai/react';
+import { useAtom , useAtomValue, atom} from 'jotai';
 import useUserInformation from "./useUserInformation"
 import RandomIcon from './RandomIcon';
 import { CSSObject } from '@emotion/react';
 import { useRouter } from "next/router";
-import { newAccountInfo } from "../../userForm/signin/accountInfo/JAtom";
-export default function userInformation(){
+import { newAccountInfo, numbersAtom } from "../../userForm/signin/accountInfo/JAtom";
+import useAccount from "../../userForm/signin/accountInfo/useAccount"
 
-    const router = useRouter();
+interface UserInformationProps {
+    goToAccount: () => void;
+  }
 
+export default function userInformation({goToAccount} : UserInformationProps){
+    const [numbers, setNumbers] = useAtom(numbersAtom);
+    const [accountInfo] = useAtom(newAccountInfo);
     const [nickName] = useAtom(nickNameAtom);
     const [gender, setGender] = useAtom(genderAtom);
     const [birth] = useAtom(birthAtom);
-    const [accountInfo] = useAtom(newAccountInfo);
     const {
         phoneNumber,
         handleNickNameChange,
@@ -30,21 +35,15 @@ export default function userInformation(){
         handleRandomNickNameChange,
         sendSignupData,
     } = useUserInformation();
-
-    const handleClick = async () => {
-        sendSignupData
-        console.log("이메일: ", accountInfo.email); // 이메일 출력
-        console.log("패스워드: ", accountInfo.password)
-        console.log("폰번호", phoneNumber)
-        console.log("닉네임: ", nickName); // 닉네임 출력
-        console.log("성별: ", gender); // 성별 출력
-        console.log("생년월일: ", birth); // 생년월일 출력
-        
-        
-        
-        // router.push('/UserInformationPage');
-        
-      }
+    
+    const accountToGoClick = () => {
+        goToAccount()
+    }
+    const handleClick = () => {
+        console.log(accountInfo)
+        console.log(nickName)
+        console.log(gender)
+    }
 
     return(
         <Box css={wrapperStyle}>
@@ -86,7 +85,7 @@ export default function userInformation(){
                 </Box>
             </Box>
             <Box css={btnWrapperStyle}>
-                <Label>
+                <Label onClick={accountToGoClick}>
                     뒤로 가기     
                 </Label>
                 <div style={spacerStyle} />

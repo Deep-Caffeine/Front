@@ -9,12 +9,19 @@ import useAccount from "./useAccount";
 import Button from "@/app/atoms/Button";
 import IsStrong from "@/app/libs/isStrong";
 import { usePathname, useRouter } from 'next/navigation';
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { newAccountInfo } from "./JAtom";
+import { numbersAtom } from './JAtom';
 
-export default function Account(){
+interface AccountProps {
+    goToUserInformation: () => void;
+  }
+
+export default function Account({ goToUserInformation }: AccountProps){
     const router = useRouter();
-    const [accountInfo, setAccountInfo] = useAtom(newAccountInfo);
+    
+    const [numbers,setNumbers] = useAtom(numbersAtom);
+    const [accountInfo,setAccountInfo] = useAtom(newAccountInfo);
     const [input, setInput] = useState<any>()
     const {
         handleId,
@@ -23,11 +30,10 @@ export default function Account(){
         isSame,
         isFormComplete,
     } = useAccount()
-    
-    const handleClick = () => {
+   
+    const handleClick =  () => {
         if (isFormComplete()) {
-            setAccountInfo({ email: accountInfo.email, password: accountInfo.password });
-            router.push('/UserInformationPage');
+            goToUserInformation();
         }
     };
     return(

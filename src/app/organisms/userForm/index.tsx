@@ -6,24 +6,24 @@ import Login from "./login";
 import Account from './signin/accountInfo/accountInfo';
 import { flexColumnCentering } from "@/app/styles/flex";
 
-export default function UserForm(){
-    const [state, setState] = useState<string>("signup")
-    const handleComponent = () => {
-        switch (state) {
-            case 'login':
-              return <Login handleState={setState}/>;
-            case 'signup':
-              return <Account/>;
-        }
-    }
-    return(
-        <Provider>
-            <Box css={wrapperStyle}>
-                {handleComponent()}
-            </Box>
-        </Provider>
-    );
-}
+// export default function UserForm(){
+//     const [state, setState] = useState<string>("signup")
+//     const handleComponent = () => {
+//         switch (state) {
+//             case 'login':
+//               return <Login handleState={setState}/>;
+//             case 'signup':
+//               return <Account/>;
+//         }
+//     }
+//     return(
+//         <Provider>
+//             <Box css={wrapperStyle}>
+//                 {handleComponent()}
+//             </Box>
+//         </Provider>
+//     );
+// }
 
 const wrapperStyle = {
     ...flexColumnCentering,
